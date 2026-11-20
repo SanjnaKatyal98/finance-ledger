@@ -1,1 +1,275 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --primary: #4f46e5;
+  --primary-hover: #4338ca;
+  --danger: #dc2626;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 4px 16px rgba(15, 23, 42, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+h2 { margin: 0 0 16px; font-size: 24px; }
+h3 { margin: 24px 0 12px; font-size: 18px; }
+
+/* ---------- Layout ---------- */
+nav {
+  display: flex;
+  gap: 4px;
+  padding: 0 24px;
+  height: 56px;
+  align-items: center;
+  background: #0f172a;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+nav a {
+  color: #94a3b8;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: background 0.15s, color 0.15s;
+}
+nav a:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+nav a.active { color: #fff; background: rgba(255, 255, 255, 0.14); }
+
+main { padding: 32px 24px; max-width: 1150px; margin: 0 auto; }
+
+/* ---------- Form controls ---------- */
+input, select, textarea, button {
+  font: inherit;
+  color: inherit;
+}
+input, select, textarea {
+  padding: 8px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.18);
+}
+input.ng-invalid.ng-touched { border-color: var(--danger); }
+
+button {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.15s, border-color 0.15s;
+}
+button:hover:not(:disabled) { background: #f1f5f9; border-color: #cbd5e1; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button[type='submit'] {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+button[type='submit']:hover:not(:disabled) { background: var(--primary-hover); border-color: var(--primary-hover); }
+
+/* ---------- Ledger toolbar ---------- */
+.filters, .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.filters {
+  background: var(--surface);
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.filters input[type='text'], .filters input:not([type]) { min-width: 220px; }
+.filters input[type='number'] { width: 120px; }
+.file { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-weight: 500; }
+.file input { padding: 4px; font-size: 13px; }
+
+/* ---------- Table ---------- */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+th {
+  background: #f8fafc;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); }
+tbody tr:last-child td { border-bottom: none; }
+td:nth-child(4), th:nth-child(4) { text-align: right; font-variant-numeric: tabular-nums; }
+.row { cursor: pointer; transition: background 0.12s; }
+.row:hover { background: #f5f3ff; }
+
+/* ---------- Pills & badges ---------- */
+.pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.ok   { background: #dcfce7; color: #166534; }
+.bad  { background: #fee2e2; color: #991b1b; }
+.wait { background: #fef3c7; color: #92400e; }
+
+.badge {
+  display: inline-block;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #fcd34d;
+  border-radius: 6px;
+  padding: 1px 8px;
+  margin: 2px 4px 2px 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+.badge.blocker { background: #fee2e2; color: #991b1b; border-color: #fca5a5; }
+
+/* ---------- Drawer ---------- */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.4);
+  animation: fade 0.2s ease-out;
+  z-index: 20;
+}
+.drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(400px, 100%);
+  background: var(--surface);
+  padding: 28px 24px;
+  box-shadow: -8px 0 32px rgba(15, 23, 42, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: slide-in 0.25s ease-out;
+  z-index: 30;
+}
+.drawer h3 { margin: 0; font-size: 20px; }
+.drawer p { margin: 0; color: var(--muted); }
+.drawer form, .rule-form { display: flex; flex-direction: column; gap: 14px; }
+.drawer label, .rule-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* ---------- Rules page ---------- */
+.rule-form {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  max-width: 720px;
+}
+fieldset {
+  border: 1px dashed #cbd5e1;
+  border-radius: var(--radius);
+  padding: 14px;
+  margin: 0;
+}
+legend { padding: 0 8px; font-weight: 600; color: var(--muted); font-size: 13px; }
+.cond { display: flex; gap: 8px; margin-bottom: 10px; }
+.cond input { flex: 1; }
+
+ul { list-style: none; padding: 0; margin: 0; max-width: 720px; }
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+li strong { margin-right: auto; }
+li button:last-child { color: var(--danger); }
+
+.field { position: relative; display: block; }
+.field input { width: 100%; padding-right: 34px; }
+.spinner {
+  position: absolute;
+  right: 10px; top: 50%;
+  width: 16px; height: 16px;
+  margin-top: -8px;
+  border: 2px solid #c7d2fe;
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.err { color: var(--danger); margin: 0; font-size: 13px; }
+
+/* ---------- Toast & banner ---------- */
+.toast {
+  position: fixed;
+  bottom: 24px; left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: #fff;
+  padding: 12px 18px;
+  border-radius: 10px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.3);
+  animation: pop 0.2s ease-out;
+  z-index: 40;
+}
+.toast button {
+  background: transparent;
+  color: #a5b4fc;
+  border: none;
+  font-weight: 600;
+  padding: 4px 8px;
+}
+.toast button:hover:not(:disabled) { background: rgba(255, 255, 255, 0.1); }
+
+.banner { background: var(--danger); color: #fff; padding: 10px 24px; text-align: center; }
+
+/* ---------- Animations ---------- */
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fade { from { opacity: 0; } }
+@keyframes slide-in { from { transform: translateX(100%); } }
+@keyframes pop { from { opacity: 0; transform: translate(-50%, 12px); } }
+
+@media (max-width: 700px) {
+  main { padding: 16px 12px; }
+  table { display: block; overflow-x: auto; }
+}
